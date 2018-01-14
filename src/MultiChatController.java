@@ -42,7 +42,7 @@ public class MultiChatController implements Runnable {
 		app.appMain();		
 		
 		//서버 생성
-		MultichatServer server = new MultichatServer();
+		//MultichatServer server = new MultichatServer();
 		//서버 start
 		//server.start();
 	}

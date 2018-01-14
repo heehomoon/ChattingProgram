@@ -19,7 +19,6 @@ public class MultiChatData {
 		list =  comp; // 전달된 Component를 textarea에 저장
 	}
 	
-	
 	public void refreshData(String msg) 
 	{
 		textarea.append(msg);        // 전달된 message를 textarea에 붙임

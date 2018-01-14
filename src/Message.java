@@ -17,7 +17,7 @@ public class Message {
 	}
 	
 	// getter/setter
-	public String getId() {
+	public String getId(){
 		return id;
 	}
 	public void setId(String id) {

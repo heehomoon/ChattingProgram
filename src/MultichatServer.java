@@ -24,6 +24,18 @@ public class MultichatServer
 	
 	Logger logger; //연결상태를 표시해주는 logger
 	
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		//서버 생성
+		MultichatServer server = new MultichatServer();
+		//서버 start
+		server.start();
+	}
+	
+	
+	
 	// 멀티 채팅 메인 프로그램 부분
 	public void start()
 	{
