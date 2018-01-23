@@ -60,96 +60,27 @@ public class MultiChatController implements Runnable {
 		//데이터 객체에서 데이터 변화를 처리할 UI 객체 (JList) 추가
 		chatData.addObj(v.perList);
 		
-//		// 이벤트 처리 메소드 생성후 view에서 사용함
-//		v.addButtonActionListener(new ActionListener()
-//		{
-//		@Override
-//		public void actionPerformed(ActionEvent e) 
-//		{
-//			Object obj = e.getSource();    // 넘어온 이벤트의 객체 반환
-//			
-//			if(obj == v.exitButton) 	   // 넘어온 이벤트가 종료 버튼일 때
-//			{
-//				System.exit(0);  		   // 시스템 종료
-//			}
-//			else if (obj == v.loginButton) 			  // 넘어온 이벤트가 로그인 버튼일 때
-//			{
-//				v.id = v.idInput.getText();		      // 입력한 대화명으로 설정
-//				v.outLabel.setText("대화명: " + v.id);  // 입력한 대화명 보여줌 
-//				v.cardLayout.show(v.tab,"logout");    // logout 패널로 변경
-//				connectServer();                      // 서버와 연결
-//			}
-//			else if (obj == v.showPeople) 			  // 넘어온 이벤트가 참여자 보기 버튼일 때
-//			{
-//				if(bshowList == false)                // 현재 참여자 보기 상태가 아니면
-//				{
-//					clientID.clear();				  // clientID 초기화
-//					
-//					// 서버에 참여자 리스트 요청 메시지 전송
-//					outMsg.println(gson.toJson(new Message(v.id,"","","list")));
-//					// 버튼 이름 변경
-//					v.showPeople.setText("채팅창가기");
-//					// 상단 라벨 변경
-//					v.outLabel.setText("현재 참여자 리스트"); 
-//					// 참여자 리스트 패널로 변경
-//					v.cardLayout2.show(v.tab2,"list");    
-//					// 현재 참여자 보기 상태이므로 true로 변경
-//					bshowList = true;
-//				}
-//				else
-//				{
-//					// 버튼 이름 변경
-//					v.showPeople.setText("참여자 보기");
-//					// 입력한 대화명으로 설정
-//					v.id = v.idInput.getText();		     
-//					v.outLabel.setText("대화명: " + v.id);  
-//					// 채팅방 대화창 패널로 변경
-//					v.cardLayout2.show(v.tab2,"text"); 
-//					// 현재 참여자 보기 상태가 아니므로 false로 변경
-//					bshowList = false;
-//				}
-//			}
-//			else if(obj == v.logoutButton) //넘어온 이벤트가 로그아웃 버튼일 때
-//			{
-//				// 서버에 참여자 로그아웃 메시지 전송
-//				outMsg.println(gson.toJson(new Message(v.id,"","","logout")));
-//				
-//			    // 대화 창 클리어
-//				v.msgOut.setText("");
-//				// 대화명 입력창 클리어 
-//				v.idInput.setText("");
-//				
-//				//대화창 패널로 전환
-//				v.cardLayout2.show(v.tab2,"text");   
-//				//로그인 패널로 전환
-//				v.cardLayout.show(v.tab, "login");
-//				
-//				//출력 스트림 닫음
-//				outMsg.close();
-//				
-//				try {
-//					//입력 스트림 닫음
-//					inMsg.close();
-//					//소켓 닫음
-//					socket.close();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				//쓰레드 종료를 위해 status false로 변경
-//				status = false;
-//			}
-//			else if(obj == v.msgInput)
-//			{
-//				//메시지 전송
-//				outMsg.println(gson.toJson(new Message(v.id,"",v.msgInput.getText(),"msg")));
-//				//입력창 클리어
-//				v.msgInput.setText("");
-//			}
-//		}
-//		
-//		});
+		// 이벤트 처리 메소드 생성후 view에서 사용함
+		v.addButtonActionListener(new ActionListener()
+		{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Object obj = e.getSource();    // 넘어온 이벤트의 객체 반환
+			
+			if(obj == v.exitButton) 	   // 넘어온 이벤트가 종료 버튼일 때
+			{
+				
+			}  
+			else if (obj == v.loginButton) 			  // 넘어온 이벤트가 로그인 버튼일 때
+			{
+				v.id = v.idInput.getText();		      // 입력한 대화명으로 설정
+				
+				connectServer();                      // 서버와 연결
+			}
+		
+			}
+		});
 	}
 	
 	String myip = "127.0.0.1"; //자신의 컴퓨터 IP 주소

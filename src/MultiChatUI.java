@@ -40,7 +40,7 @@ public class MultiChatUI extends JFrame {
 	
 	MultiChatUI()
 	{
-		setTitle("채팅 프로그램");                          //Frame 제목 설정
+		setTitle("Chatting Program HeeHo Moon 122193");                          //Frame 제목 설정
 		setLayout(new BorderLayout());                  //레이아웃 BorderLayout으로 설정
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Frame 끄면 종료
 		
@@ -50,9 +50,9 @@ public class MultiChatUI extends JFrame {
 		//로그인 Panel
 		loginPanel = new JPanel(); 						//loginPanel 생성
 		loginPanel.setLayout(new BorderLayout());       //loginPanel 레이아웃 BorderLayout으로 설정
-		inLabel = new JLabel("대화명");                   //대화명 설정 전 라벨
+		inLabel = new JLabel("Nickname");                   //대화명 설정 전 라벨
 		idInput = new JTextField(15);                  	//대화명 입력을 위한 TextField 생성
-		loginButton = new JButton("로그인");              //로그인 버튼 생성
+		loginButton = new JButton("Login");              //로그인 버튼 생성
 		
 		//라벨, 필드, 버튼 BorderLayout 설정
 		loginPanel.add(inLabel,BorderLayout.WEST);		
@@ -63,9 +63,9 @@ public class MultiChatUI extends JFrame {
 		//로그아웃 Panel
 		logoutPanel = new JPanel();						//logoutPanel 생성
 		logoutPanel.setLayout(new BorderLayout());      //logoutPanel 레이아웃 BorderLayout으로 설정
-		showPeople = new JButton("참여자 보기");
+		showPeople = new JButton("Participants");
 		outLabel = new JLabel();						//대화명 설정 후 라벨
-		logoutButton = new JButton("로그아웃");			//로그아웃 버튼
+		logoutButton = new JButton("Logout");			//로그아웃 버튼
 		
 		//라벨, 필드, 버튼 BorderLayout 설정
 		logoutPanel.add(showPeople,BorderLayout.WEST);
@@ -106,7 +106,7 @@ public class MultiChatUI extends JFrame {
 		msgPanel = new JPanel();                    //메시지 패널 생성
 		msgPanel.setLayout(new BorderLayout()); 	 //msgPanel의 레이아웃 BorderLayout으로 설정
 		msgInput = new JTextField(15);				//메시지 입력 필드 생성
-		exitButton = new JButton("종료");				//종료 버튼 생성
+		exitButton = new JButton("Send");				//종료 버튼 생성
 	
 		
 		//필드, 버튼의 BorderLayout 설정

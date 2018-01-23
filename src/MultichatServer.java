@@ -117,7 +117,7 @@ public class MultichatServer
 					chatIds.remove(m.getId());
 					
 					//모든 참여자에게 로그아웃한 참여자 정보 알림
-					msgSendAll(gson.toJson(new Message(m.getId(),"","님이 종료했습니다.","logout")));
+					msgSendAll(gson.toJson(new Message(m.getId(),"","is logged out","logout")));
 					//해당 클라이언트 스레드 종료로 status를 false로 설정
 					status = false; 
 				}//로그인 메시지일 때
@@ -128,7 +128,7 @@ public class MultichatServer
 					//로그인 메시지가 들어오면 리스트에 해당 id 추가
 					chatIds.add(m.getId());
 					//모든 참여자에게 로그인한 참여자 정보 알림
-					msgSendAll(gson.toJson(new Message(m.getId(),"","님이 로그인 했습니다","login")));
+					msgSendAll(gson.toJson(new Message(m.getId(),"","is logged in","login")));
 				}//참여자 list 요청 메시지 일 때
 				else if(m.getType().equals("list"))
 				{

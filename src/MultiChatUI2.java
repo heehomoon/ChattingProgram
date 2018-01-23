@@ -11,7 +11,7 @@ public class MultiChatUI2 extends JFrame {
 	// 로그인 패널 관련 Component
 	public JPanel loginPanel;      //로그인 패널
 	public JButton loginButton;    //로그인 버튼
-	public JLabel inLabel;         //대화명 로그인 라벨
+	public JLabel idLabel;         //대화명 로그인 라벨
 	public JTextField idInput;     //대화명 입력 필드
 	
 	// 접속자리스트 화면 패널 관련 Component
@@ -39,11 +39,11 @@ public class MultiChatUI2 extends JFrame {
 		loginPanel = new JPanel(); 						//loginPanel 생성
 		loginPanel.setLayout(null);  
 		
-		inLabel = new JLabel("ID");         inLabel.setBounds(30, 100, 50, 10);
-		idInput = new JTextField(15);       idInput.setBounds(30, 150, 50, 10);
-		loginButton = new JButton("로그인");  loginButton.setBounds(80, 100, 50, 20);
+		idLabel = new JLabel("ID");         idLabel.setBounds(60, 100, 200, 30);
+		idInput = new JTextField(15);       idInput.setBounds(90, 100, 150, 30);
+		loginButton = new JButton("Login");  loginButton.setBounds(250, 100, 80, 30);
 		
-		loginPanel.add(inLabel);
+		loginPanel.add(idLabel);
 		loginPanel.add(idInput);
 		loginPanel.add(loginButton);
 
@@ -55,7 +55,6 @@ public class MultiChatUI2 extends JFrame {
 		JScrollPane scrollpane1= new JScrollPane(perList);
 		scrollpane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
 		listPanel.add(scrollpane1,BorderLayout.CENTER);
-		
 		
 		//메시지 입력창 Panel
 		msgPanel = new JPanel();                    //메시지 패널 생성
@@ -92,7 +91,7 @@ public class MultiChatUI2 extends JFrame {
 	//controller에서 이벤트를 처리하기 위해 미리 구축한 메소드
 	public void addButtonActionListener(ActionListener listener)
 	{
-//		loginButton.addActionListener(listener);  //로그인 버튼 눌렀을 때 action
+		loginButton.addActionListener(listener);  //로그인 버튼 눌렀을 때 action
 //		showPeople.addActionListener(listener);   //참여자보기 버튼 눌렀을 때 action
 //		logoutButton.addActionListener(listener); //로그아웃 버튼 눌렀을 때 action
 //		exitButton.addActionListener(listener);   //종료 버튼 눌렀을 때 action
