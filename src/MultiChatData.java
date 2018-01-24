@@ -16,7 +16,7 @@ public class MultiChatData {
 	
 	public void addObj(JList comp)
 	{
-		list =  comp; // 전달된 Component를 textarea에 저장
+		list =  comp;            
 	}
 	
 	public void refreshData(String msg) 

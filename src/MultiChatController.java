@@ -27,12 +27,12 @@ public class MultiChatController implements Runnable {
 	Thread thread;              //쓰레드 객체
 	Message m;                  //메시지 객체
 
-	Vector<String> clientID = new Vector<String>();    //현재 참여하고 있는 참여자 ID를 저장히는 Vector
-	
-	boolean bshowList = false;  //참여자 보기 버튼을 눌렀음을 보여주는 flag
+
 	boolean status;             //쓰레드 실행 결정을 위한 변수
-	
 	Gson gson = new Gson();     //Gson 객체 생성
+	
+	Participants listDialog;
+	public Vector<String> clientID = new Vector<String>();    //현재 참여하고 있는 참여자 ID를 저장히는 Vector
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -70,16 +70,49 @@ public class MultiChatController implements Runnable {
 			
 			if(obj == v.exitButton) 	   // 넘어온 이벤트가 종료 버튼일 때
 			{
-				
+				System.exit(0);
 			}  
 			else if (obj == v.loginButton) 			  // 넘어온 이벤트가 로그인 버튼일 때
 			{
 				v.id = v.idInput.getText();		      // 입력한 대화명으로 설정
-				
+				v.cardLayout.show(v.tab, "msg");
 				connectServer();                      // 서버와 연결
+				v.idInput.setText("");
 			}
-		
+			else if (obj == v.logoutButton) 		  // 넘어온 이벤트가 로그인 버튼일 때
+			{
+				outMsg.println(gson.toJson(new Message(v.id,"","","logout")));
+				v.msgOut.setText("");
+				outMsg.close();
+				
+				try {
+					inMsg.close();
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				status = false;
+				v.cardLayout.show(v.tab, "login");
 			}
+			else if (obj == v.sendButton || obj == v.msgInput) 		  // 넘어온 이벤트가 로그인 버튼일 때
+			{
+				if(v.msgInput.getText().equals("") == false)
+				{
+					outMsg.println(gson.toJson(new Message(v.id,"",v.msgInput.getText(),"")));
+					v.msgInput.setText("");
+				}
+			}
+			else if(obj == v.showlistButton)
+			{
+				clientID.clear();
+				// 서버에 참여자 리스트 요청 메시지 전송
+				outMsg.println(gson.toJson(new Message(v.id,"","","list")));
+	
+				listDialog = new Participants(chatData.list);
+			}
+		}
 		});
 	}
 	
@@ -142,7 +175,7 @@ public class MultiChatController implements Runnable {
 						 //view의 List를 현재의 clientID로 변경
 						chatData.refreshList(clientID);   
 						//view의 TextArea에 참여자 로그인 알림
-						chatData.refreshData(m.getId()+":"+m.getMsg()+"\n");
+						chatData.refreshData(m.getId()+" "+m.getMsg()+"\n");
 					}
 					// 메시지 타입이 채팅방 참여자가 로그아웃 했다는 메시지일 경우
 					else if(m.getType().equals("logout"))   //logout type 메시지가 들어올 때
@@ -152,12 +185,12 @@ public class MultiChatController implements Runnable {
 						 //view의 List를 현재의 clientID로 변경
 						chatData.refreshList(clientID);   
 						//view의 TextArea에 참여자 로그아웃 알림
-						chatData.refreshData(m.getId()+":"+m.getMsg()+"\n");
+						chatData.refreshData(m.getId()+" "+m.getMsg()+"\n");
 					}
 					else
 					{
 					   //view의 TextArea를 현재의 clientID로 변경
-						chatData.refreshData(m.getId()+":"+m.getMsg()+"\n");
+						chatData.refreshData(m.getId()+" : "+m.getMsg()+"\n");
 						
 						//커서를 현재 대화 메시지에 표시
 						v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());

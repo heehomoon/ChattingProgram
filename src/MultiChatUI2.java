@@ -22,6 +22,9 @@ public class MultiChatUI2 extends JFrame {
 	public JPanel msgPanel;        //메시지 패널
 	public JTextArea msgOut;       //대화창 TextArea
 	public JTextField msgInput;    //메시지 입력 필드
+	public JButton logoutButton;
+	public JButton showlistButton;
+	public JButton sendButton;
 	public JButton exitButton;	   //종료 버튼
 
 	public String id;
@@ -29,13 +32,11 @@ public class MultiChatUI2 extends JFrame {
 	MultiChatUI2()
 	{
 		setTitle("채팅 프로그램");                          //Frame 제목 설정
-		setLayout(new BorderLayout());                  //레이아웃 BorderLayout으로 설정
+		getContentPane().setPreferredSize(new Dimension(400,500));                     //Frame 위치 설정
+		pack();
+		setResizable(false);    
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Frame 끄면 종료
-		
-		setSize(400,500);                               //Frame 크기 설정
-		setLocation(200, 100);                          //Frame 위치 설정
-		
-		// 로그인 Panel
+
 		loginPanel = new JPanel(); 						//loginPanel 생성
 		loginPanel.setLayout(null);  
 		
@@ -46,7 +47,38 @@ public class MultiChatUI2 extends JFrame {
 		loginPanel.add(idLabel);
 		loginPanel.add(idInput);
 		loginPanel.add(loginButton);
+		
+		//메시지 입력창 Panel
+		msgPanel = new JPanel();                    //메시지 패널 생성
+		msgPanel.setLayout(null); 					//NULL
 
+		msgOut = new JTextArea("",10,10);               //행의 수 10, 열의 수 10 Textarea 생성
+		msgOut.setEditable(false);						//대화창 커서로 수정 금지
+		JScrollPane scrollpane2 = new JScrollPane(msgOut);  //scroll plane에 textArea 추가
+		scrollpane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
+			
+		msgInput = new JTextField(15);				 	//메시지 입력 필드 생성
+		exitButton = new JButton("Exit");				//종료 버튼 생성
+		sendButton = new JButton("Send");				//종료 버튼 생성
+		logoutButton = new JButton("Logout");			//종료 버튼 생성
+		showlistButton = new JButton("Participants");
+		
+		showlistButton.setBounds(0,0,200,30);
+		logoutButton.setBounds(300, 0, 100, 30);
+		exitButton.setBounds(200,0,100,30);
+		
+		msgOut.setBounds(0,30,400,400);
+		msgInput.setBounds(0,430,330,70);
+		sendButton.setBounds(330,430,70,70);
+		//필드, 버튼의 BordeLyout 설정
+		msgPanel.add(msgOut);
+		msgPanel.add(msgInput);
+		msgPanel.add(exitButton);
+		msgPanel.add(sendButton);
+		msgPanel.add(logoutButton);
+		msgPanel.add(showlistButton);
+		msgPanel.setBackground(Color.lightGray);
+		
 		// 참여자 리스트 Panel
 		listPanel = new JPanel(); 					
 		listPanel.setLayout(new BorderLayout());  
@@ -55,24 +87,6 @@ public class MultiChatUI2 extends JFrame {
 		JScrollPane scrollpane1= new JScrollPane(perList);
 		scrollpane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
 		listPanel.add(scrollpane1,BorderLayout.CENTER);
-		
-		//메시지 입력창 Panel
-		msgPanel = new JPanel();                    //메시지 패널 생성
-		msgPanel.setLayout(new BorderLayout()); 	 
-
-		msgOut = new JTextArea("",10,10);               //행의 수 10, 열의 수 10 Textarea 생성
-		msgOut.setEditable(false);						//대화창 커서로 수정 금지
-		JScrollPane scrollpane2 = new JScrollPane(msgOut);  //scroll plane에 textArea 추가
-		scrollpane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
-			
-		msgInput = new JTextField(15);				//메시지 입력 필드 생성
-		exitButton = new JButton("종료");				//종료 버튼 생성
-	
-		//필드, 버튼의 BordeLyout 설정
-		msgPanel.add(exitButton,BorderLayout.NORTH);
-		msgPanel.add(msgOut,BorderLayout.CENTER);
-		msgPanel.add(msgInput,BorderLayout.SOUTH);
-		msgPanel.setBackground(Color.lightGray);
 		
 		// Tab 
 		tab = new JPanel();								//tab 패널 생성
@@ -87,14 +101,14 @@ public class MultiChatUI2 extends JFrame {
 		setVisible(true);							//Frame 보이기
 	}
 	
-	
 	//controller에서 이벤트를 처리하기 위해 미리 구축한 메소드
 	public void addButtonActionListener(ActionListener listener)
 	{
 		loginButton.addActionListener(listener);  //로그인 버튼 눌렀을 때 action
-//		showPeople.addActionListener(listener);   //참여자보기 버튼 눌렀을 때 action
-//		logoutButton.addActionListener(listener); //로그아웃 버튼 눌렀을 때 action
-//		exitButton.addActionListener(listener);   //종료 버튼 눌렀을 때 action
-//		msgInput.addActionListener(listener);     //메시지 입력칸 눌렀을 때 action
+		showlistButton.addActionListener(listener);   //참여자보기 버튼 눌렀을 때 action
+		logoutButton.addActionListener(listener); //로그아웃 버튼 눌렀을 때 action
+		exitButton.addActionListener(listener);   //종료 버튼 눌렀을 때 action
+		sendButton.addActionListener(listener);   //종료 버튼 눌렀을 때 action
+		msgInput.addActionListener(listener);     //메시지 입력칸 눌렀을 때 action
 	}
 }
