@@ -15,8 +15,11 @@ public class MultiChatController implements Runnable {
 
 	//뷰 클래스 참조 객체
 	private final MultiChatUI2 v;
+	//참여자 클래스 참조 객체
+	private final Participants p;
 	//데이터 클래스 참조 객체
 	private final MultiChatData chatData;
+
 	
 	Logger logger; 				// 서버 연결상태 확인을 위한 logger
 	
@@ -38,12 +41,12 @@ public class MultiChatController implements Runnable {
 		// TODO Auto-generated method stub
 		
 		//클라이언트 생성
-		MultiChatController app = new MultiChatController(new MultiChatData(),new MultiChatUI2());
+		MultiChatController app = new MultiChatController(new MultiChatData(),new MultiChatUI2(),new Participants());
 		app.appMain();		
 		
 	}
 	
-	public MultiChatController(MultiChatData chatData, MultiChatUI2 v) {
+	public MultiChatController(MultiChatData chatData, MultiChatUI2 v, Participants p) {
 			
 		//로거 객체 초기화
 		logger = Logger.getLogger(this.getClass().getName());
@@ -51,6 +54,7 @@ public class MultiChatController implements Runnable {
 		// 모델과 뷰 클래스 참조
 		this.chatData = chatData;
 		this.v = v;
+		this.p = p;
 	}
 	
 	public void appMain()
@@ -58,7 +62,7 @@ public class MultiChatController implements Runnable {
 		//데이터 객체에서 데이터 변화를 처리할 UI 객체 (JTextArea) 추가 
 		chatData.addObj(v.msgOut);
 		//데이터 객체에서 데이터 변화를 처리할 UI 객체 (JList) 추가
-		chatData.addObj(v.perList);
+		chatData.addObj(p.pList);
 		
 		// 이벤트 처리 메소드 생성후 view에서 사용함
 		v.addButtonActionListener(new ActionListener()
@@ -109,8 +113,9 @@ public class MultiChatController implements Runnable {
 				clientID.clear();
 				// 서버에 참여자 리스트 요청 메시지 전송
 				outMsg.println(gson.toJson(new Message(v.id,"","","list")));
-	
-				listDialog = new Participants(chatData.list);
+				
+				p.setList();
+				p.setVisible(true);
 			}
 		}
 		});
