@@ -101,6 +101,7 @@ public class MultichatServer
 					
 					//JSON 메시지를 Message 객체로 매핑
 					m = gson.fromJson(msg, Message.class);
+			
 					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -132,14 +133,14 @@ public class MultichatServer
 				}//참여자 list 요청 메시지 일 때
 				else if(m.getType().equals("list"))
 				{
-					// chatIds에 있는 모든 id "member" 타입 메시지로 전달
+					//chatIds에 있는 모든 id "member" 타입 메시지로 전달
 					for(String id : chatIds)
 					{	
 						msgSend(m.getId(),gson.toJson(new Message("","",id,"member")));
 					}
-					
 				}//그 밖의 경우, 즉 일반 메시지 일때
-				else {
+				else if(m.getType().equals("message"))
+				{
 					msgSendAll(msg);
 				}
 			}
@@ -148,14 +149,14 @@ public class MultichatServer
 			this.interrupt();
 			logger.info(this.getName()+"종료됨!");
 		}
-		
+	
 		// ArrayList에 존재하는 모든 chatThread에 메시지를 전달하는 메소드
 		public void msgSendAll(String msg)
-		{
+		{		
 			// 모든 chatThrea에 메시지 전달 
 			for(ChatThread ct : chatThreads)
 			{
-				ct.outMsg.println(msg);
+				ct.outMsg.println(msg);	
 			}
 		}
 	

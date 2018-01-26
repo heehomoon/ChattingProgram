@@ -13,13 +13,11 @@ public class MultiChatUI2 extends JFrame {
 	public JButton loginButton;    //로그인 버튼
 	public JLabel idLabel;         //대화명 로그인 라벨
 	public JTextField idInput;     //대화명 입력 필드
-	
-	// 접속자리스트 화면 패널 관련 Component
-	public JPanel listPanel;
-	public JList perList;
+
 	
 	// 대화창 화면 패널 관련 Component
 	public JPanel msgPanel;        //메시지 패널
+	public JScrollPane scrollpane;
 	public JTextArea msgOut;       //대화창 TextArea
 	public JTextField msgInput;    //메시지 입력 필드
 	public JButton logoutButton;
@@ -54,8 +52,8 @@ public class MultiChatUI2 extends JFrame {
 
 		msgOut = new JTextArea("",10,10);               //행의 수 10, 열의 수 10 Textarea 생성
 		msgOut.setEditable(false);						//대화창 커서로 수정 금지
-		JScrollPane scrollpane2 = new JScrollPane(msgOut);  //scroll plane에 textArea 추가
-		scrollpane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
+		scrollpane = new JScrollPane(msgOut);           //scroll plane에 textArea 추가
+		scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
 			
 		msgInput = new JTextField(15);				 	//메시지 입력 필드 생성
 		exitButton = new JButton("Exit");				//종료 버튼 생성
@@ -67,11 +65,11 @@ public class MultiChatUI2 extends JFrame {
 		logoutButton.setBounds(300, 0, 100, 30);
 		exitButton.setBounds(200,0,100,30);
 		
-		msgOut.setBounds(0,30,400,400);
+		scrollpane.setBounds(0,30,400,400);
 		msgInput.setBounds(0,430,330,70);
 		sendButton.setBounds(330,430,70,70);
 		//필드, 버튼의 BordeLyout 설정
-		msgPanel.add(msgOut);
+		msgPanel.add(scrollpane);
 		msgPanel.add(msgInput);
 		msgPanel.add(exitButton);
 		msgPanel.add(sendButton);
@@ -79,21 +77,11 @@ public class MultiChatUI2 extends JFrame {
 		msgPanel.add(showlistButton);
 		msgPanel.setBackground(Color.lightGray);
 		
-		// 참여자 리스트 Panel
-		listPanel = new JPanel(); 					
-		listPanel.setLayout(new BorderLayout());  
-		
-		perList = new JList();
-		JScrollPane scrollpane1= new JScrollPane(perList);
-		scrollpane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
-		listPanel.add(scrollpane1,BorderLayout.CENTER);
-		
 		// Tab 
 		tab = new JPanel();								//tab 패널 생성
 		cardLayout = new CardLayout();      			//cardLayout 생성
 		tab.setLayout(cardLayout);					 	//tab의 레이아웃 cardLayout으로 설정
 		tab.add(loginPanel,"login");					//tab에 로그인 패널 추가
-		tab.add(listPanel,"list");						//tab에 리스트 패널 추가
 		tab.add(msgPanel,"msg");
 		
 		this.add(tab);

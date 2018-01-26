@@ -25,10 +25,4 @@ public class Participants extends JDialog{
 		scrollpane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//항상 세로축 스크롤바 추가    	 
 		add(scrollpane1,BorderLayout.CENTER);
 	}
-	
-	void setList()
-	{
-		scrollpane1.setViewportView(pList);
-	}
-
 }

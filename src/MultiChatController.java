@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Logger;
 
+
+
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class MultiChatController implements Runnable {
 
@@ -43,7 +48,6 @@ public class MultiChatController implements Runnable {
 		//클라이언트 생성
 		MultiChatController app = new MultiChatController(new MultiChatData(),new MultiChatUI2(),new Participants());
 		app.appMain();		
-		
 	}
 	
 	public MultiChatController(MultiChatData chatData, MultiChatUI2 v, Participants p) {
@@ -104,7 +108,7 @@ public class MultiChatController implements Runnable {
 			{
 				if(v.msgInput.getText().equals("") == false)
 				{
-					outMsg.println(gson.toJson(new Message(v.id,"",v.msgInput.getText(),"")));
+					outMsg.println(gson.toJson(new Message(v.id,"",v.msgInput.getText(),"message")));
 					v.msgInput.setText("");
 				}
 			}
@@ -113,9 +117,7 @@ public class MultiChatController implements Runnable {
 				clientID.clear();
 				// 서버에 참여자 리스트 요청 메시지 전송
 				outMsg.println(gson.toJson(new Message(v.id,"","","list")));
-				
-				p.setList();
-				p.setVisible(true);
+
 			}
 		}
 		});
@@ -157,7 +159,7 @@ public class MultiChatController implements Runnable {
 		
 		//쓰레드 실행을 결정하는 status 
 		status = true;
-	
+	 		
 		while(status) 
 		{	
 			try {
@@ -171,6 +173,7 @@ public class MultiChatController implements Runnable {
 					{
 						clientID.add(m.getMsg());
 						chatData.refreshList(clientID);
+						p.setVisible(true);
 					}
 					// 메시지 타입이 채팅방 참여자가 로그인 했다는 메시지일 경우
 					else if(m.getType().equals("login"))   //login type 메시지가 들어올 때
@@ -192,10 +195,26 @@ public class MultiChatController implements Runnable {
 						//view의 TextArea에 참여자 로그아웃 알림
 						chatData.refreshData(m.getId()+" "+m.getMsg()+"\n");
 					}
-					else
+					else if(m.getType().equals("message"))
 					{
-					   //view의 TextArea를 현재의 clientID로 변경
-						chatData.refreshData(m.getId()+" : "+m.getMsg()+"\n");
+						String temp = m.getMsg();
+						int len = temp.length();
+						for(int i = 0 ; i< len/10 ;  i++)
+						{
+							temp = temp.substring(0, 10*(i+1)) + "\n" + temp.substring(10*(i+1)+1,temp.length());
+						}
+						m.setMsg(temp);
+						
+						if(m.getId().equals(v.id))
+						{
+							chatData.refreshData(""+m.getMsg()+"\n");
+						}
+						else
+						{
+											
+							chatData.refreshData(m.getId()+" : "+m.getMsg()+"\n");
+						}
+					  
 						
 						//커서를 현재 대화 메시지에 표시
 						v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
@@ -209,4 +228,15 @@ public class MultiChatController implements Runnable {
 		}
 
 	}
+	
+//	public String makeSpace(String id)
+//	{
+//		String temp = "";
+//		for (int i = 0 ; i < id.length() + 3 ;i++)
+//		{
+//			temp += " ";
+//		}
+//		
+//		return temp;
+//	}
 }
